@@ -1,0 +1,102 @@
+openapi: 3.0.1
+info:
+  title: FluxController API
+  description: API for managing Flux tasks
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /webFlux/getCard/{id}:
+    get:
+      summary: Searching card
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Card retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FluxResponse'
+        '404':
+          description: Card not found
+        '500':
+          description: Internal server error
+  /webFlux/getCards/:
+    get:
+      summary: Searching cards
+      responses:
+        '200':
+          description: Card retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FluxResponse'
+        '404':
+          description: Card not found
+        '500':
+          description: Internal server error
+  /webFlux/postCard:
+    post:
+      summary: Posting card
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FluxRequest'
+      responses:
+        '200':
+          description: Card created successfully
+        '500':
+          description: Internal server error
+  /webFlux/attCard:
+    put:
+      summary: Updating card
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FluxRequest'
+      responses:
+        '200':
+          description: Card updated successfully
+        '500':
+          description: Internal server error
+  /webFlux/dropCard/{id}:
+    delete:
+      summary: Delete card
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Card deleted successfully
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    FluxRequest:
+      type: object
+      properties:
+        priorityCard:
+          type: string
+        messageCard:
+          type: string
+        memberCard:
+          type: array
+          items:
+            type: string
+    FluxResponse:
+      type: object
+      properties:
+        cardId:
+          type: string
