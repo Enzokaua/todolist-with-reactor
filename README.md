@@ -1,4 +1,3 @@
-## ToDoList com Reactor :coffee:
 
 # ToDoList (App)
 
