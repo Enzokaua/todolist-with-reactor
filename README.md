@@ -1,31 +1,62 @@
-# Twiit - Plataforma pessoal
+# TodoList API - com Spring WebFlux e Reactor
 
-> Twiit é um desenvolvimento pessoal de como funcionaria o back-end de uma aplicação de mídia social como o Instagram e o Facebook por exemplo. O projeto conta com escopos de segurança e autenticação utilizando geração de tokens
-através do JWT e do OAuth2, suas funcionalidades são as necessárias para que este fluxo funcione corretamente. A aplicação tem as principais funcionalidades:
-> - Um usuário administrador pode criar outros usuários;
-> - Um usuário pode efetuar um login e assim terá um token de autenticação;
-> - Todos os usuários logados consegue gerar tweets (Verificacao através do token quando efetuado o login);
-> - Todos os usuários logados conseguem ver todos os tweets criados (com paginação)
-> - Somente o usuário quem criou o seu tweet, pode deletá-lo;
-> - Um usuário Administrador pode criar outros usuários Administradores;
-> - Um usuário básico não pode criar usuários;
+Este projeto implementa uma API RESTful para gerenciar uma lista de tarefas (TodoList) utilizando **Spring WebFlux** e o paradigma **Reactor**. O projeto é construído com **Java 21**, **Maven** como gerenciador de dependências, e **Lombok** para simplificar o código boilerplate.
 
 
-## 💻 Pré-requisitos
+## 📋 Funcionalidades
 
-Caso deseje instalar o projeto para verificar, fique a vontade! Antes de começar, é necessário que os seguintes passos estejam configurados:
+A API oferece endpoints para gerenciar tarefas (cards) com as seguintes operações:
+- **GET `/getCard/{id}`**: Busca um card pelo ID.
+- **POST `/postCard`**: Cria um novo card.
+- **PUT `/attCard/{id}`**: Atualiza um card existente pelo ID.
+- **DELETE `/dropCard/{id}`**: Deleta um card pelo ID.
 
-- Java 21 ou superior instalado no ambiente;
-- Maven instalado e apontado nas variáveis de ambiente;
-- Geração da chave pública e privada através do OpenSSL (O projeto conta com uma chave pública e privada default, mas é de extrema necessidade que seja gerada uma referente ao seu ambiente);
+### FluxResponse e FluxRequest
+Esses objetos representam, respectivamente, a resposta e o payload esperado pela API:
+- `FluxResponse`: Utilizado para retornar os dados de um card.
+- `FluxRequest`: Representa o payload enviado pelo cliente para criar ou atualizar cards.
 
+---
 
-## 🚀 Sobre o projeto
+## 🛠️ Tecnologias Utilizadas
+- **Java**: Versão 21.
+- **Spring Framework**: Versão 3.3.3.
+- **Spring WebFlux**: Versão 3.2.0.
+- **Lombok**: Para reduzir código boilerplate.
+- **MySQL**: Banco de dados para persistência.
+- **Maven**: Gerenciador de dependências.
 
-O projeto ainda está em desenvolvimento, não possuindo um frontend integrado com a aplicação, tendo que suas requisições sejam acessadas diretamente aos endpoints. Este projeto foi inicialmente criado para testar as habilidades em JWT e OAuth, alternativas de segurança na qual venho interagindo com elas a algum tempo. O projeto foi desenvolvido com Java 21, Spring como framework, JWT e OAuth como tecnologias de segurança de usuário, e, JPA e MySql como mapeamento de objetos e banco de dados. Foi desenvolvido alguns passos com o SSL para geração da chave pública e privada necessárias ao JWT, mas que fogem do escopo deste projeto. 
+## 💻 Configuração do Banco de Dados
+Configure o banco de dados no arquivo `application.yml`:
 
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/todolist
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  sql:
+    init:
+      platform: mysql
+```
 
-## :coffee: Contratos da API
-O projeto conta com as funcionalidades detalhadas em seu descritivo e as suas necessidades antes do deploy em sua máquina pessoal já mencionadas. Com estes 2 pontos configurados, já é possível subir o projeto e realizar um teste com sua integração verificando os constratos passados no swagger.yaml.
+## 🚀 Como Executar
+1- Clone o repositório:
+```bash
+git clone https://github.com/seu-usuario/todolist-webflux.git
+cd todolist-webflux
+```
 
-Em caso de dúvida ou alterações, estou a disposição. Abraços! 👋
+2- Compile o projeto:
+```bash
+mvn clean install
+```
+
+3- Execute a aplicação::
+```bash
+mvn spring-boot:run
+```
