@@ -47,7 +47,7 @@ spring:
 ## 🚀 Como Executar
 1- Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/todolist-webflux.git
+git clone https://github.com/enzokaua/todolist-with-reactor.git
 cd todolist-webflux
 ```
 
